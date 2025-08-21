@@ -43,7 +43,7 @@ const SigninPage = () => {
       const success = await signin(signinRequest);
       console.log(success)
       if (success) {
-        navigate("/");
+        navigate("/dashboard");
       }
     } catch (error) {
       console.error("Login failed:", error);
