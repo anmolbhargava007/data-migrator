@@ -130,6 +130,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem("user");
     localStorage.removeItem("userRole");
     toast.success("Logged out successfully");
+    
+    // Redirect to signin page
     navigate("/signin");
   };
 

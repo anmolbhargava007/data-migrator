@@ -2,6 +2,7 @@
 import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { LogOut, Database, LineChart, User, Shield, Key, ShieldCheck } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import {
   Sidebar,
@@ -54,9 +55,10 @@ export default function AppShell({ children, userType }: AppShellProps) {
       ? "nav-link nav-link-active"
       : "nav-link nav-link-inactive";
 
+  const { logout } = useAuth();
+
   const handleLogout = () => {
-    // Handle logout logic here
-    window.location.href = "/login";
+    logout();
   };
 
   return (

@@ -33,7 +33,7 @@ const App = () => (
             <Sonner />
             <Routes>
               {/* Root redirect */}
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/" element={<Navigate to="/signin" replace />} />
               
               {/* Public routes */}
               <Route element={<AuthLayout />}>
