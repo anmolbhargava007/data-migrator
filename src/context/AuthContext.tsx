@@ -88,13 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         toast.success("Signed in successfully");
 
         // Redirect based on user role
-        if (roleId === 1) {
-          // Super Admin redirects to dashboard
-          navigate("/dashboard");
-        } else if (roleId === 2) {
-          // Other users (like Guests) redirect to main
-          navigate("/main");
-        }
+        navigate("/dashboard");
         return true;
       } else {
         toast.error(response.msg || "Failed to sign in");

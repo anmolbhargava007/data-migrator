@@ -3,9 +3,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
 import { AuthLayout } from "@/components/AuthLayout";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -31,27 +32,33 @@ const App = () => (
             <Toaster />
             <Sonner />
             <Routes>
+              {/* Root redirect */}
+              <Route path="/" element={<Navigate to="/signin" replace />} />
+              
               {/* Public routes */}
               <Route element={<AuthLayout />}>
                 <Route path="/signin" element={<SigninPage />} />
                 <Route path="/signup" element={<SignupPage />} />
+                <Route path="/login" element={<Navigate to="/signin" replace />} />
               </Route>
 
-              {/* Protected routes */}
+              {/* Protected routes with sidebar */}
               <Route element={<AuthLayout protected withHeader />}>
-                {/* Admin Routes */}
-                <Route path="/admin" element={<AdminDashboard />} />
-                <Route path="/admin/connections" element={<DatabaseConnections />} />
-                <Route path="/admin/api-keys" element={<ApiKeys />} />
-                <Route path="/admin/users" element={<Users />} />
+                <Route element={<SidebarProvider><div className="w-full"><Outlet /></div></SidebarProvider>}>
+                  {/* Admin Routes */}
+                  <Route path="/admin" element={<AdminDashboard />} />
+                  <Route path="/admin/connections" element={<DatabaseConnections />} />
+                  <Route path="/admin/api-keys" element={<ApiKeys />} />
+                  <Route path="/admin/users" element={<Users />} />
 
-                {/* User Routes */}
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/dashboard/schema" element={<SchemaExplorer />} />
-                <Route path="/dashboard/validation" element={<SchemaValidation />} />
-                <Route path="/dashboard/eda" element={<EdaAnalysis />} />
-                <Route path="/dashboard/relationships" element={<RelationshipAnalysis />} />
-                <Route path="/dashboard/askvault" element={<AskVault />} />
+                  {/* User Routes */}
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/dashboard/schema" element={<SchemaExplorer />} />
+                  <Route path="/dashboard/validation" element={<SchemaValidation />} />
+                  <Route path="/dashboard/eda" element={<EdaAnalysis />} />
+                  <Route path="/dashboard/relationships" element={<RelationshipAnalysis />} />
+                  <Route path="/dashboard/askvault" element={<AskVault />} />
+                </Route>
               </Route>
               
               <Route path="*" element={<NotFound />} />

@@ -22,8 +22,8 @@ export const AuthLayout = ({ protected: isProtected = false, withHeader = false 
   }
 
   if (!isProtected && isAuthenticated) {
-    // Redirect based on user role
-    return <Navigate to={userRole === 1 ? "/dashboard" : "/main"} />;
+    // Redirect authenticated users to dashboard
+    return <Navigate to="/dashboard" />;
   }
 
   return (
